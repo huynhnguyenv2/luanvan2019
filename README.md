@@ -3,4 +3,4 @@
 - Back-end: Ruby
 - Font-end: React
 - Database: 
-- Cái sử lý realtime: 
+- Cái ử lý realtime: 
