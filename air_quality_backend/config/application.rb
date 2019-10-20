@@ -37,6 +37,6 @@ module AirQualityBackend
     config.after_initialize do
       mqttSub = MqttService.new
       mqttSub.run
-     end
+    end
   end
 end
