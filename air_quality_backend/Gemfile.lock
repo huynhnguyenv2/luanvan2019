@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/njh/ruby-mqtt.git
+  revision: 878639e85827aa25688e9c4ef1511d393549dcfa
+  specs:
+    mqtt (0.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -157,6 +163,7 @@ DEPENDENCIES
   byebug
   listen (>= 3.0.5, < 3.2)
   mongoid (~> 7.0, >= 7.0.5)
+  mqtt!
   puma (~> 3.11)
   rails (~> 6.0.0)
   spring

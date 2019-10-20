@@ -4,7 +4,6 @@ class NodesController < ApplicationController
   # GET /nodes
   def index
     @nodes = Node.all
-
     render json: @nodes
   end
 
@@ -15,6 +14,7 @@ class NodesController < ApplicationController
 
   # POST /nodes
   def create
+    
     @node = Node.new(node_params)
 
     if @node.save
