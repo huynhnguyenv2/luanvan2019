@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
-import getFireBase from './services/firebase.service';
-import routes from './routes/routes'
+import getFireBase from '../services/firebase.service';
+import routes from '../routes/routes'
 
 
 const port = 3000; 
