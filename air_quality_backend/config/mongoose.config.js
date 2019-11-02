@@ -5,6 +5,9 @@ const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
-const db = mongoose.connection;
+  
 
-export default db;
+
+const mongoData = mongoose.connection;
+
+export default mongoData;

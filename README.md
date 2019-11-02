@@ -1,6 +1,6 @@
 # luanvan2019
 
-- Back-end: Ruby
+- Back-end: Nodjs
 - Font-end: React
-- Database: 
-- Cái ử lý realtime: 
+- Database: mongodb + firebase
+- Cái xử lý realtime:

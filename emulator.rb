@@ -15,13 +15,19 @@ def insert_input(firebase,station)
       response = firebase.push(
         "nodes", 
         { 
-          data: "#{station},#{rand(1.0..180.0)},#{rand(1.0..180.0)},#{DateTime.now},#{row[10]},#{row[7]},#{row[6]},#{row[8]},#{row[2]}"
+          id: station,
+          date_time: row[0],
+          so2: row[10],
+          o2: row[7],
+          no2: row[6],
+          pm10: row[8],
+          co: row[2],
         }
       )
       puts response.success? # => true
       puts response.code # => 200
       
-      sleep(5)  # slow it down because computers are too fast
+      sleep(30)  # slow it down because computers are too fast
     end
   end
 end 
