@@ -1,5 +1,6 @@
 'use strict';
-const express = require('express');
+import express from 'express';
+
 const app = express.Router();
 
 const node_controller = require('../controllers/node.controller');

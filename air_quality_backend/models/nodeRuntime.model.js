@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 
 let NodeRuntimeSchema = new Schema({
-  node_info_id: {types: Number},
-  datatime: {types: Date},
-	so2: {type: Number},
-	no2: {type: Number},
-	o2: {type: Number},
-	co: {type: Number}
+  code_id: Number,
+  datatime: Date,
+	so2: Number,
+	no2: Number,
+	o2: Number,
+	co: Number
 });
 
-module.exports = mongoose.model('Nodes', NodeRuntimeSchema);
+module.exports = mongoose.model('NodeRuntime', NodeRuntimeSchema);

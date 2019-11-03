@@ -8,46 +8,36 @@ require 'rubygems'
 require 'mqtt'
 require 'csv'
 require 'firebase'
-def insert_input(firebase,station)
+def insert_input(client, station)
   CSV.foreach('./data/madrid_2002.csv', :headers => false) do |row|
     if row.last.to_i == station
-      puts 'pushing'
-      response = firebase.push(
-        "nodes", 
-        { 
-          id: station,
-          date_time: row[0],
-          so2: row[10],
-          o2: row[7],
-          no2: row[6],
-          pm10: row[8],
-          co: row[2],
-        }
-      )
-      puts response.success? # => true
-      puts response.code # => 200
-      
-      sleep(30)  # slow it down because computers are too fast
+      data = "station:#{station},date_time:#{row[0]},So2:#{row[10]},O2:#{row[8]},No2:#{row[6]},Co:#{row[2]}"
+      client.publish('nodes', data)
+
+      sleep(5) 
     end
   end
 end 
 
 def emulator
-  # We have to do this in a separate thread or process (or a different computer)
-  firebase_url    = 'https://airquality-8892d.firebaseio.com'
-  firebase_secret = 'dmOMAvMlnDu8MTTVYWjILJ9vU8NcdaoEk9P5CumK'
-  firebase        = Firebase::Client.new(firebase_url, firebase_secret)
+  MQTT::Client.connect(
+    :host => 'm11.cloudmqtt.com',
+    :port => 16524,
+    :username => "ikkwucnu",
+    :password => "UN9O6syezakc"
+  ) do |client|
+    thread_one = Thread.new do
+      insert_input client, 28079001
+    end   
+
+    thread_two = Thread.new do
+      insert_input client, 28079035
+    end
+
+    thread_one.join
+    thread_two.join
   
-  thread_one = Thread.new do
-    insert_input firebase, 28079001
-  end   
-  thread_two = Thread.new do
-    insert_input firebase, 28079035
   end
-
-  thread_one.join
-  thread_two.join
-
 end
 
 emulator()
