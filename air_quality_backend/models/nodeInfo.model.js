@@ -4,11 +4,22 @@ const Schema = mongoose.Schema;
 
 
 let NodeInfoSchema = new Schema({
-	code: {types: Number},
-	station: {type: String},
-	lat: {type: Number},
-	long: {type: Number},
-	status: {type: String}
-});
+	code: {
+		type: Number,
+		required: true
+	},
+	station: {
+		type: String,
+		required: true
+	},
+	lat: {
+		type: Number,
+		required: true
+	},
+	long: {
+		type: Number,
+		required: true
+	}
+}, { _id: false });
 
-module.exports = mongoose.model('Nodes', NodeInfoSchema);
+module.exports = mongoose.model('NodeInfo', NodeInfoSchema);

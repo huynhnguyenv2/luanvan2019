@@ -5,16 +5,15 @@ const ShowNodeComponent = (props) => {
   return (
     <div className="show-detail">
         <div className="row">
-          <div className="index col-md-6"> 115</div>
+          <div className="index col-md-6"> <h3 className="text-center mt-3">115</h3></div>
           <div className="col-md-6">
             <p>Unhealthy for Sensitive Groups</p>
             <p>Updated on Saturday 11:00</p>
-            Temp.: 26°C
           </div>
         </div>
-        <div className="node-items">
-            <p>Current Past</p>
-            <NodeItemComponent />
+        <div className="node-items container">
+            <p>Predict in the next 6 hours:</p>
+            
         </div>
     </div>
   )

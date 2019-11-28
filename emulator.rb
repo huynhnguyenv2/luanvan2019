@@ -11,7 +11,12 @@ require 'firebase'
 def insert_input(client, station)
   CSV.foreach('./data/madrid_2002.csv', :headers => false) do |row|
     if row.last.to_i == station
-      data = "station:#{station},date_time:#{row[0]},So2:#{row[10]},O2:#{row[8]},No2:#{row[6]},Co:#{row[2]}"
+      data = "{\"station_code\":#{station},"
+      data += "\"date_time\":\"#{row[0]}\","
+      data += "\"so2\":#{row[10] || -1},"
+      data += "\"o2\":#{row[8] || -1},"
+      data += "\"no2\":#{row[6]  || -1},"
+      data += "\"co\":#{row[2] || -1}}"
       client.publish('nodes', data)
 
       sleep(5) 

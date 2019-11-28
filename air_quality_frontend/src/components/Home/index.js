@@ -12,9 +12,10 @@ const HomeComponent = (props) => {
         node: null
     });
 
-    const source = axios.CancelToken.source();
 
     useEffect(() => {
+        const source = axios.CancelToken.source();
+
         setState({node: 1});
         axios.get('/nodes', {
             cancelToken: source.token
@@ -34,7 +35,7 @@ const HomeComponent = (props) => {
         }
     },[])
     // Make a request for a user with a given ID
-    const listNode = state.data ? state.data.filter(item => item.id === 28079001) : [];
+
     return ( 
         <Container> 
             <div className="mt-3">
@@ -50,15 +51,15 @@ const HomeComponent = (props) => {
                 <div className="col-md-6 col-sm-12 col-xs-12"   > 
                     <div className="panel" >
                         <div className="panel-heading">
-                            <p>Dữ liệu VN_AQI 48 giờ của các thông số</p>
+                            <p>Dữ liệu Runtime 24 giờ của các thông số.</p>
                         </div>
-                        <RenderChart data={[...listNode]}/>   
+                        <RenderChart node_code={28079035}/>   
                     </div>    
                 </div>     
                 <div className="col-md-6 col-sm-12 col-xs-12"> 
                     <div className="panel" >
                         <div className="panel-heading"> 
-                            <p><b>Hanoi AQI:</b> Hanoi Real-time Air Quality Index (AQI).</p>
+                            <p><b>Madrid AQI:</b> Madrid Real-time Air Quality Index (AQI).</p>
                         </div>
                         <ShowNodeComponent />
                     </div> 
@@ -66,7 +67,7 @@ const HomeComponent = (props) => {
                 </div>  
             </div>
             <div className="mt-5">
-                <GoogleMapView />
+                <GoogleMapView infoNodes={state.data}/>
             </div>
         </Container>
     )

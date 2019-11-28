@@ -18,15 +18,11 @@ function getDataFromMqtt() {
     client.reconnect()
   })
   client.on("message", (topic, message) => {
-    const dt = message.toString().split(',')
-    console.log(dt)
-    const node = new NodeRuntime({
-      code_id: Number,
-      datatime: Date,
-      so2: Number,
-      no2: Number,
-      o2: Number,
-      co: Number
+    const dt = JSON.parse(message.toString().split(','))
+    const node = new NodeRuntime({...dt});
+    node.save((err) => {
+      if (err) return console.log(err);
+      console.log("success")
     });
   })
 }

@@ -1,6 +1,10 @@
 import bodyParser from 'body-parser';
 import routes from '../routes'
 import getDataFromMqtt from '../service/getDataMqtt.service'
+import mongoose from '../config/mongoose.config'
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));  
 
 const port = 4000; 
 const express = require("express");
