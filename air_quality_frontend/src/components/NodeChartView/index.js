@@ -36,7 +36,6 @@ const RenderChart = (props) => {
         }
         res.data.slice(0,23).forEach(
             (value) => {   
-                console.log(new Date(value.date_time))
                 data.So2.push([ new Date(value.date_time), checkData(value.so2)])
                 data.Co.push([ new Date(value.date_time), checkData(value.co) ])
                 data.No2.push([ new Date(value.date_time), checkData(value.no2) ])

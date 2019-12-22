@@ -7,7 +7,6 @@
 require 'rubygems'
 require 'mqtt'
 require 'csv'
-require 'firebase'
 def insert_input(client, station)
   CSV.foreach('./data/madrid_2002.csv', :headers => false) do |row|
     if row.last.to_i == station
@@ -31,15 +30,15 @@ def emulator
     :username => "ikkwucnu",
     :password => "UN9O6syezakc"
   ) do |client|
-    thread_one = Thread.new do
-      insert_input client, 28079001
-    end   
+    # thread_one = Thread.new do
+    #   insert_input client, 28079001
+    # end   
 
     thread_two = Thread.new do
       insert_input client, 28079035
     end
 
-    thread_one.join
+    # thread_one.join
     thread_two.join
   
   end

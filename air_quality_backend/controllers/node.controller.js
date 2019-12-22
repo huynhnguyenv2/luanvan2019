@@ -4,7 +4,7 @@ import NodeRunTime from '../models/nodeRuntime.model'
 import csv from 'csv-parser';
 import fs from 'fs';
 import path from 'path';
-
+import predictData from '../service/predictData.service'
 exports.list_all_nodes = function(req, res) {
 	NodeInfo.find({}, function(err, data) {
     if (err){
@@ -28,7 +28,8 @@ exports.seed_node_info = function(req, res) {
 							code: parseInt(row.id),
 							station: row.name,
 							lat: parseFloat(row.lat),
-							long: parseFloat(row.lon)
+							long: parseFloat(row.lon),
+							status: 'Good',
 						})
 					}
 					
@@ -56,6 +57,7 @@ exports.read_a_node = function(req, res) {
 			res.send(err);
 		}			
 		else
+			//predictData(node);
 			res.json(node);
 	});
 };

@@ -19,6 +19,10 @@ let NodeInfoSchema = new Schema({
 	long: {
 		type: Number,
 		required: true
+	},
+	status: {
+		type: String,
+		required: true
 	}
 }, { _id: false });
 

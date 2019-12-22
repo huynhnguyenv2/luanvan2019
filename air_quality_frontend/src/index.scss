@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.gm-style .gm-style-iw-t::after {
+  background: none !important;
+}
+.gm-style .gm-style-iw-c {
+  width: 180px;
+  height: 70px;
+  padding: 7px;
+}
+.inforWindow {
+  p {
+    font-size: 12px;
+    margin-bottom: 0.5em;
+  }
+}

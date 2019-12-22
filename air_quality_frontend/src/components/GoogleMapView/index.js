@@ -1,40 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
-import { compose, withProps, withStateHandlers } from "recompose";
-
-const key =  "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
+import { compose, withProps } from "recompose";
+import '../../index.scss';
+const key = "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
 const GoogleMapView = compose(
     withProps({
       googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`,
       loadingElement: <div style={{ height: `100%` }} />,
-      containerElement: <div style={{ height: `500px`}} />,
+      containerElement: <div style={{ width: `80%`, height: `400px`, margin: `0 auto`}} />,
       mapElement: <div style={{ height: `80%` }} />,
       isMarkerShown: true
-    }),
-    withStateHandlers(() => ({
-      isOpen: true,
-    }), {
-      onToggleOpen: ({ isOpen }) => () => ({
-        isOpen: !isOpen
-      })
     }),
     withScriptjs,
     withGoogleMap
   )((props) => {
+    const [state, setState] = useState({
+      markIndex: 0,
+    })
+    const onToggleOpen = (index) => {
+      setState({
+        markIndex: index
+      })
+    }
     const listItems = !props.infoNodes ? [] : props.infoNodes.map(
-      (item, index) => 
-        <Marker 
-                key={index}
-                position={{lat: item.lat, lng: item.long}} 
-                onClick={props.onToggleOpen}>
-          {
-            props.isOpen &&
-            <InfoWindow onCloseClick={props.onToggleOpen}>
-              <div>{item.station}</div>
-            </InfoWindow>
-          }
-        </Marker>
-      
+      (item, id) => 
+      {
+        return <Marker       
+              key={id}
+              position={{lat: item.lat, lng: item.long}} 
+              onClick={() => onToggleOpen(id)}>
+        {  
+          (state.markIndex === id) &&
+          <InfoWindow onCloseClick={() => onToggleOpen(-1)}>
+            <RenderInfoWindow item={item}/> 
+          </InfoWindow>
+        }
+      </Marker>
+      }     
     ) 
     
     return <GoogleMap 
@@ -46,4 +48,13 @@ const GoogleMapView = compose(
       } 
     </GoogleMap >
     })
+
+const RenderInfoWindow = (props) => {
+  return <div className="inforWindow"> 
+    <p><b>Station: </b> {props.item.station}</p>
+    <p><b>Status: </b>  {props.item.status} </p> 
+    <i>See more...</i>
+  </div>
+}
+
 export default GoogleMapView;

@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react';
 import axios from 'axios';
 import GoogleMapView from '../GoogleMapView';
 import {Container} from 'react-bootstrap';
-import "./homeStyle.scss";
+import "./homeStyle.scss"
 import 'bootstrap/dist/css/bootstrap.css';
 import ShowNodeComponent from '../ShowNodeView';
 import RenderChart from '../NodeChartView'
@@ -47,6 +47,9 @@ const HomeComponent = (props) => {
                 </ul>
                        
             </div>   */}
+            <div className="mt-5">
+                <GoogleMapView infoNodes={state.data}/>
+            </div>
             <div className="mt-3 row">
                 <div className="col-md-6 col-sm-12 col-xs-12"   > 
                     <div className="panel" >
@@ -66,9 +69,7 @@ const HomeComponent = (props) => {
                     
                 </div>  
             </div>
-            <div className="mt-5">
-                <GoogleMapView infoNodes={state.data}/>
-            </div>
+            
         </Container>
     )
 };
