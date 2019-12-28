@@ -18,7 +18,7 @@ def insert_input(client, station)
       data += "\"co\":#{row[2] || -1}}"
       client.publish('nodes', data)
 
-      sleep(5) 
+      sleep(1) 
     end
   end
 end 
@@ -35,7 +35,7 @@ def emulator
     # end   
 
     thread_two = Thread.new do
-      insert_input client, 28079035
+      insert_input client, 28079008
     end
 
     # thread_one.join

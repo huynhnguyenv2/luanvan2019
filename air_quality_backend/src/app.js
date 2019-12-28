@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import routes from '../routes'
 import getDataFromMqtt from '../service/getDataMqtt.service'
 import mongoose from '../config/mongoose.config'
+import predictData from '../service/predictData.service';
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));  
@@ -13,7 +14,7 @@ const server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(routes); 
-
+predictData();
 getDataFromMqtt();
 server.listen(port, () =>{ console.log('Server is running ' + port); })
 

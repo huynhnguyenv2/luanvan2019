@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 
 
 let NodeRuntimeSchema = new Schema({
-  station_code: {
-		type: Number,
-		required: true
+	station_code: {
+			type: Number,
+			required: true
 	},
-  date_time: {
-		type: String,
-		required: true
+	date_time: {
+			type: String,
+			required: true
 	},
 	so2: {
 		type: Number

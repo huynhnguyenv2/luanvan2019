@@ -21,7 +21,7 @@ let NodeInfoSchema = new Schema({
 		required: true
 	},
 	status: {
-		type: String,
+		type: Array,
 		required: true
 	}
 }, { _id: false });

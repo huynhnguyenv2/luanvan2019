@@ -38,7 +38,7 @@ const HomeComponent = (props) => {
 
     return ( 
         <Container> 
-            <div className="mt-3">
+            <div className="mt-1">
                 <h2 className="text-center">Air Pollution: Real-time Air Quality Index</h2>
             </div>
             {/* <div className="stations">
@@ -47,16 +47,16 @@ const HomeComponent = (props) => {
                 </ul>
                        
             </div>   */}
-            <div className="mt-5">
+            <div className="mt-2">
                 <GoogleMapView infoNodes={state.data}/>
             </div>
-            <div className="mt-3 row">
+            <div className="mt-2 container row">
                 <div className="col-md-6 col-sm-12 col-xs-12"   > 
                     <div className="panel" >
                         <div className="panel-heading">
                             <p>Dữ liệu Runtime 24 giờ của các thông số.</p>
                         </div>
-                        <RenderChart node_code={28079035}/>   
+                        <RenderChart node_code={28079008}/>   
                     </div>    
                 </div>     
                 <div className="col-md-6 col-sm-12 col-xs-12"> 
