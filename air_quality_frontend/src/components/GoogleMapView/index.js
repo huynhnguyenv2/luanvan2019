@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { compose, withProps } from "recompose";
 import '../../index.scss';
-const key = 1 || "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
+const key = 1 ||  "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
 const GoogleMapView = compose(
     withProps({
       googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`,
       loadingElement: <div style={{ height: `100%` }} />,
-      containerElement: <div style={{ width: `80%`, height: `400px`, margin: `0 auto`}} />,
-      mapElement: <div style={{ height: `80%` }} />,
+      containerElement: <div style={{ width: `60%`, height: `450px`, margin: `0 auto`}} />,
+      mapElement: <div style={{ height: `90%` }} />,
       isMarkerShown: true
     }),
     withScriptjs,
@@ -22,6 +22,9 @@ const GoogleMapView = compose(
         markIndex: index
       })
     }
+    const handleClick = (node) => {
+      props.onClick(node)
+    }
     const listItems = !props.infoNodes ? [] : props.infoNodes.map(
       (item, id) => 
       {
@@ -32,7 +35,7 @@ const GoogleMapView = compose(
         {  
           (state.markIndex === id) &&
           <InfoWindow onCloseClick={() => onToggleOpen(-1)}>
-            <RenderInfoWindow item={item}/> 
+            <RenderInfoWindow item={item} onClick={handleClick}/> 
           </InfoWindow>
         }
       </Marker>
@@ -50,11 +53,27 @@ const GoogleMapView = compose(
     })
 
 const RenderInfoWindow = (props) => {
-  return <div className="inforWindow"> 
+  let status = props.item.status
+  //console.log(status)
+  let warning = getWarningStatus(status);
+  const handleClick = (event, node) => {
+    event.preventDefault();
+    props.onClick(node)
+  }
+  return <div className='inforWindow' > 
     <p><b>Station: </b> {props.item.station}</p>
-    <p><b>Status: </b>  {props.item.status} </p> 
-    <i>See more...</i>
+    <p><b>Status: </b>  {props.item.status} <span className={'status ' + warning}></span></p> 
+    <a onClick={(e) => handleClick(e, props.item)}> <i>See more...</i></a>
   </div>
 }
 
+const getWarningStatus = (status) => {
+  if (status.length === 1 && status[0] === 'Good'){
+    return 'stable'
+  } else if (status.length === 1 ) { 
+    return 'warning'
+  } else {
+    return 'danger' 
+  }
+}
 export default GoogleMapView;

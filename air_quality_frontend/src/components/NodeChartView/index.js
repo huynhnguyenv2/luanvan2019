@@ -33,13 +33,12 @@ const RenderChart = (props) => {
           No2: [],
           So2: [],
         }
-        res.data.node.slice(0,2).forEach(
+        res.data.node.slice(0,6).forEach(
             (value) => {   
                 let time = new Date(value.date_time)  
                 let nodeP = res.data.nodePredict[0].prediction[indexNodePredict]
           
                 if (moment(nodeP.date_time).isSame(value.date_time)) {
-                  debugger
                   data.So2.push([ time, checkData(value.so2), checkData(nodeP.so2)])
                   data.Co.push([ time, checkData(value.co), checkData(nodeP.co) ])
                   data.No2.push([ time, checkData(value.no2), checkData(nodeP.no2) ])
@@ -54,14 +53,14 @@ const RenderChart = (props) => {
         while (indexNodePredict < res.data.nodePredict[0].prediction.length - 1){ 
       
           let nodeP = res.data.nodePredict[0].prediction[indexNodePredict]; 
-          console.log(nodeP.date_time)
+          //console.log(nodeP.date_time)
           let time = new Date(nodeP.date_time)
           data.So2.push([ time, null, checkData(nodeP.so2)])
           data.Co.push([ time, null, checkData(nodeP.co)])
           data.No2.push([ time, null, checkData(nodeP.no2)])
           indexNodePredict++;
         }
-        console.log(data)
+        //console.log(data)
         setState({
             ...state, 
             data: {
