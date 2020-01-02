@@ -10,25 +10,10 @@ const ShowNodeComponent = (props) => {
   })
   const node = props.node
   useEffect(() => {
-    let src = ''
-    if (node.status) {
-      if (node.status.length === 1 && node.status[0] === 'Good') {
-        src = require("../../images/good.png")
-        setState({...state, src: src, text: 'Air quality is Healthy. Enjoy your life.'})
-      } 
-      else if (node.status.length === 1) {
-        src = require("../../images/warning.png")
-        setState({...state, src: src, text: 'Alo alo'})
-      }
-      else {
-        src = require("../../images/danger.png")
-        setState({...state, src: src, text: 'kkkkkkk'})
-      }
-    }
 
     const lat = node.lat;
     const lon = node.long;
-    const url = 'https://api.darksky.net/forecast/9d09fd8ed5b6b06b046f1f12cfdebb2d/' + lat + ',' + lon;
+    const url = 'https://api.darksky.net/forecast/848d48c94bd973b432daca581d268737/' + lat + ',' + lon;
     axios.get(url)
     .then(function (response) {
       // handle success
@@ -46,15 +31,30 @@ const ShowNodeComponent = (props) => {
   const renderImage = () => {
     //debugger
     //console.log(node)
-    
+    let src = '', text = ''
+
+    if (node.status.length === 1 && node.status[0] === 'Good') {
+      src = require("../../images/good.png")
+      text = node.status + 'Nothing to worry about'
+    } 
+    else if (node.status.length === 1) {
+      src = require("../../images/warning.png")
+      text = node.status + 'You should handle it'
+    }
+    else {
+      src = require("../../images/danger.png")
+      text = node.status + 'The concentration of pollutants is too high. You should protect your health'
+    }
+    return [src, text]
   }
   if (state.weatherInfo) {
+    let  [src, text] = renderImage()
     return (
       <div className="show-detail mb-3">
         <p><b>Current weather in:  </b> {node.station}</p>
         <div className="row">
           <div className="col-md-6 col-sm-12 col-xs-12 mb-5 img-responsive">
-            <Img src={state.src} alt="image" />
+            <Img src={src} alt="image" />
           </div>
           <div className="col-md-6 col-sm-12 col-xs-12 mb-5 mt-2">
             <p>{'Summary: ' + state.weatherInfo.summary}</p>
@@ -64,7 +64,7 @@ const ShowNodeComponent = (props) => {
           </div>  
         </div>
         <div className="recomment">
-    <p><b>Recommendation: </b> {state.text}</p>
+    <p><b>Recommendation: </b> {text}</p>
         </div>
       </div>
     )

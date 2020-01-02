@@ -33,7 +33,7 @@ const RenderChart = (props) => {
           No2: [],
           So2: [],
         }
-        res.data.node.slice(-15, -8).forEach(
+        res.data.node.slice(-15, -6).forEach(
             (value) => {   
                 let time = new Date(value.date_time)  
                 let nodeP = res.data.nodePredict[0].prediction[indexNodePredict]

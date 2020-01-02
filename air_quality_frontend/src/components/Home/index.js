@@ -46,8 +46,7 @@ const HomeComponent = (props) => {
             </div>
             <div className="info-view container ">
                 <div className="info-text">
-                    <h5> Our producing</h5>
-                    <p>To embed your selected fonts into a webpage, copy this code into the of your HTML document.</p>
+                    
                 </div>
                 <div className="row">
                     <div className="col-md-6 col-sm-12 col-xs-12 mb-5"> 
@@ -65,9 +64,6 @@ const HomeComponent = (props) => {
                     </div>  
                 </div>
                 
-            </div>
-            <div className="container footer">
-                <p>Created by Hoang Pham</p>
             </div>
         </div>
     )
