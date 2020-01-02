@@ -24,6 +24,9 @@ let NodeRuntimePrediction = new Schema({
         },
         co: {
             type: Number
+        },
+        pm10: {
+            type: Number
         }
     }]
     

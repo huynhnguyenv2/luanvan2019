@@ -60,7 +60,7 @@ function checkStatus(input) {
 }
 
 async function updateNodeInfo(id, comment) {
-  console.log("id: ", id," comment", comment)
+  //console.log("id: ", id," comment", comment)
   const filter = { code : id };
   const update = { status: comment };
   let doc = await NodeInfo.findOneAndUpdate(filter, update, {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { compose, withProps } from "recompose";
 import '../../index.scss';
-const key = 1 ||  "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
+const key = "AIzaSyAZ8wWKFz7aJiVOOmLN6iPjOD3Im1aN-00";
 const GoogleMapView = compose(
     withProps({
       googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`,
@@ -62,11 +62,22 @@ const RenderInfoWindow = (props) => {
   }
   return <div className='inforWindow' > 
     <p><b>Station: </b> {props.item.station}</p>
-    <p><b>Status: </b>  {props.item.status} <span className={'status ' + warning}></span></p> 
+    {renderStatus(props)}
     <a onClick={(e) => handleClick(e, props.item)}> <i>See more...</i></a>
   </div>
 }
+const renderStatus = (props) => {
 
+  //console.log(props)
+  let text = 'Unhealthy', className = 'nd-danger'
+  if (props.item.status.length === 1 && props.item.status[0] === 'Good') {
+    [text, className] = ['Healthy', 'nd-good']
+  } else if (props.item.status.length === 1) {
+    [text, className] = ['Moderate', 'nd-warning']
+  }
+  console.log(text)
+  return <p><b>Status: </b><span className={'status ' + className}> {text} </span></p> 
+}
 const getWarningStatus = (status) => {
   if (status.length === 1 && status[0] === 'Good'){
     return 'stable'

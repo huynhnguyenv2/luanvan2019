@@ -58,7 +58,7 @@ exports.seed_node_info = function(req, res) {
 				{
 					index_name: 'so2',
 					max: 20,
-					min: 10,
+					min: 0,
 				},
 				{
 					index_name: 'o2',
@@ -67,13 +67,18 @@ exports.seed_node_info = function(req, res) {
 				},
 				{
 					index_name: 'no2',
-					max: 70,
-					min: 40,
+					max: 100,
+					min: 0,
 				},
 				{
 					index_name: 'co',
 					max: 1,
-					min: 0.4,
+					min: 0,
+				},
+				{
+					index_name: 'pm10',
+					max: 100,
+					min: 50
 				}
 			]
 			RatingIndex.insertMany(data)

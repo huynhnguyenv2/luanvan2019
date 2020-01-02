@@ -23,6 +23,9 @@ let NodeRuntimeSchema = new Schema({
 	},
 	co: {
 		type: Number
+	},
+	pm10: {
+		type: Number
 	}
 });
 

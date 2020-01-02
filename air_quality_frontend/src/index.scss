@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Cinzel|Prompt&display=swap');
-p, text{
+p, text, b, span{
   font-family: 'Prompt', sans-serif;
 }
 body {
@@ -87,20 +87,36 @@ code {
 }
 
 .inforWindow {
+  width: 250px;
+  margin-bottom: 20px;
   p {
     font-size: 12px;
     margin-bottom: 0.5em;
   }
   a {
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
+    color: #007bff !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
   }
   padding-bottom: 10px;
 }
 
 .status {
-  width: 50px;
+  
+  border-radius: 5px;
+  padding: 3px;
+  &.nd-good {
+    background-color: #a8e05e;
+    color: #718a3a;
+  }
+  &.nd-warning {
+    background-color:#fea967;
+    color: #b2582a; 
+  }
+  &.nd-danger {
+    background-color: #fa7877;
+    color: #af303b;
+  }
 }
 .stable {
   background-color: rgba(43, 43, 236, 0.89);
