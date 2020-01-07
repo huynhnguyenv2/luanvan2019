@@ -6,7 +6,9 @@ const ShowNodeComponent = (props) => {
   const [state, setState] = useState({
     weatherInfo: null, 
     text: '',
-    src: ''
+    src: '',
+    next_hour: '',
+    next_three_hours: ''
   })
   const node = props.node
   useEffect(() => {
@@ -18,7 +20,31 @@ const ShowNodeComponent = (props) => {
     .then(function (response) {
       // handle success
       //console.log(response);
-      setState({...state, weatherInfo: response.data.currently})
+      setState({...state, weatherInfo: response.data.currently});
+      const source = axios.CancelToken.source();
+
+      axios.get('/node', {
+        params: {
+          code: node.code
+        }
+        
+      },{
+        headers: {
+          cancelToken: source.token
+        }
+        
+      })
+      .then(function (res) {
+        let data = res.data.nodePredict[0].prediction;
+      
+        let next_hour = checkData(data[0])
+        let next_tree_hour = checkData(data[3])
+        setState({...state, next_hour: next_hour, next_three_hours: next_tree_hour});
+      })
+      .catch(function (error) {
+        // handle error
+          console.log(error);
+      })
     })
     .catch(function (error) {
       // handle error
@@ -43,7 +69,7 @@ const ShowNodeComponent = (props) => {
     }
     else {
       src = require("../../images/danger.png")
-      text = node.status + 'The concentration of pollutants is too high. You should protect your health'
+      text = node.status + 'The concentration of pollutants is too high. You should protect your health.'
     }
     return [src, text]
   }
@@ -64,11 +90,39 @@ const ShowNodeComponent = (props) => {
           </div>  
         </div>
         <div className="recomment">
-    <p><b>Recommendation: </b> {text}</p>
+          <p><small><b>Current: </b> {text}</small></p>
+          <p><small><b>Next 1 hour : </b> {state.next_hour}</small></p>
+          <p><small><b>After 3 hours : </b> {state.next_three_hours}</small></p>
         </div>
       </div>
     )
   }
   else return null
+}
+const checkData = (data ) =>{
+
+  let str = ''
+  let count = 0;
+  if (data.so2 > 20) {
+    count++;
+    str += 'Index of So2 will high. '
+  }
+  if (data.pm10 > 100) {
+    count++ ;
+    str += 'Index of Pm10 will high. '
+  }
+  if (data.no2 > 100) {
+    count++;
+    str += 'Index of No2 will high. '
+  }
+
+  if (count === 0) {
+    str += 'These Indexs will stable. Nothing to worry about'
+  } else if (count === 1) {
+    str += ' You should handle it'
+  } else {
+    str += ' The concentration of pollutants is too high. You should protect your health.'
+  }
+  return str;
 }
 export default ShowNodeComponent;

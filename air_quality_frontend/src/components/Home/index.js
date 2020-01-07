@@ -49,13 +49,22 @@ const HomeComponent = (props) => {
                     
                 </div>
                 <div className="row">
-                    <div className="col-md-6 col-sm-12 col-xs-12 mb-5"> 
+                    <div className="col-md-12 col-sm-12 col-xs-12 mb-5"> 
                         <div className="panel" >
-                            <p className="text"><b>Station: </b> {state.node.station}</p>
-                            <RenderChart node_code={state.node.code}/>   
+                            <div className="row">
+                                <div className="col-md-6 col-sm-6 col-xs-6">
+                                    <p className="text"><b>Station: </b> {state.node.station}</p>
+                                </div>
+                                <div className="col-md-6 col-sm-6 col-xs-6 row ">
+                                    <p className="col-md-4">Index RealTime</p> <div className="square-realtime"> </div>
+                                    <p className="col-md-4">Index Predict</p> <div className="square-predict"></div>
+                                </div>
+                            </div>
+                            
+                            <RenderChart node_code={state.node.code}/> 
                         </div>    
                     </div>     
-                    <div className="col-md-6 col-sm-12 col-xs-12 mb-5"> 
+                    <div className="col-md12  col-sm-12 col-xs-12 mb-5"> 
                         <div className="panel" >
                             <p className="text"><small> {moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}</small></p>
                             <ShowNodeComponent node={state.node}/>
@@ -65,6 +74,7 @@ const HomeComponent = (props) => {
                 </div>
                 
             </div>
+              
         </div>
     )
 };

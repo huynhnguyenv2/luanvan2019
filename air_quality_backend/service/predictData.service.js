@@ -4,6 +4,7 @@ import NodeRunTimePrediction from '../models/nodeRuntimePrediction.model'
 import NodeRunTime from '../models/nodeRuntime.model'
 import moment from 'moment'
 function predictData(station_code ) {    
+    if (station_code === 111111) return;
     NodeRunTime.find({station_code: station_code}, function(err, node) {
 		if (err){
             console.log(err)
@@ -13,7 +14,7 @@ function predictData(station_code ) {
             //console.log(updateTime)
        
             const outputPredict1 = predictNode(node, 'so2')
-            console.log(outputPredict1)
+            //console.log(outputPredict1)
             const outputPredict2 = predictNode(node, 'no2')
             const outputPredict3 = predictNode(node, 'pm10')
             //console.log(outputPredict2)
@@ -61,7 +62,7 @@ function predictNode(data, factor) {
         hiddenLayers: [3],
         outputSize: 1
     });
-    net.train(dataTrain, { log: false, iterations: 600 });
+    net.train(dataTrain, { log: true, iterations: 600 });
     const output = net.forecast(xTest, 4);
     return output
 }

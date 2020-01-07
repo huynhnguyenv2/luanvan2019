@@ -33,7 +33,7 @@ const RenderChart = (props) => {
           No2: [],
           So2: [],
         }
-        res.data.node.slice(-15, -6).forEach(
+        res.data.node.slice(-20, -11).forEach(
             (value) => {   
                 let time = new Date(value.date_time)  
                 let nodeP = res.data.nodePredict[0].prediction[indexNodePredict]
@@ -96,7 +96,7 @@ const RenderChart = (props) => {
     <Chart 
         className="mx-auto"
         key={index}
-        chartType="LineChart"
+        chartType="ScatterChart"
         loader={<div>Loading Chart</div>}
         columns={columns}
         rows={state.data[value]}
@@ -106,7 +106,7 @@ const RenderChart = (props) => {
           legend: 'none',
           vAxis: {viewWindow: { min: 0 } },
         }}
-        height= {"100px"}
+        height= {"200px"}
         width="100%"
     />
   );

@@ -7,9 +7,10 @@
 require 'rubygems'
 require 'mqtt'
 require 'csv'
+$start = 0 
 def insert_input(client, station)
-  CSV.foreach('./data/madrid_2003.csv', :headers => false) do |row|
-    if row.last.to_i == station
+  CSV.foreach('./data/madrid_2003.csv', :headers => false).with_index do |row,i |  
+    if (row.last.to_i == station)
       data = "{\"station_code\":#{station},"
       data += "\"date_time\":\"#{row[0]}\","
       data += "\"so2\":#{row[12] || -1},"
@@ -17,8 +18,7 @@ def insert_input(client, station)
       data += "\"no2\":#{row[6]  || -1},"
       data += "\"co\":#{row[2] || -1},"
       data += "\"pm10\":#{row[10] || -1}}"
-      client.publish('nodes', data)
-
+      client.publish('nodes', data) 
       sleep(1) 
     end
   end
@@ -31,6 +31,7 @@ def emulator
     :username => "ikkwucnu",
     :password => "UN9O6syezakc"
   ) do |client|
+    
     thread_one = Thread.new do
       insert_input client, 28079016
     end   
@@ -50,7 +51,7 @@ def emulator
     thread_five = Thread.new do
       insert_input client, 28079017
     end
-    
+
     thread_one.join
     thread_two.join
     thread_three.join

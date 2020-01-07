@@ -39,6 +39,13 @@ exports.seed_node_info = function(req, res) {
 					
 				})
 				.on('end', () => {
+					data.push({
+						code: '111111',
+						station: 'Madrid',
+						lat: 40.4378698,
+						long: -3.8196207,
+						status: ['Good'],
+					})
 					NodeInfo.insertMany(data)
 					.then((docs) =>{
 						console.log('nodeInfo success')
@@ -78,7 +85,17 @@ exports.seed_node_info = function(req, res) {
 				{
 					index_name: 'pm10',
 					max: 100,
-					min: 50
+					min: 0
+				},
+				{
+					index_name: 'temp',
+					max: 35,
+					min: 0
+				},
+				{
+					index_name: 'humi',
+					max: 50,
+					min: 0
 				}
 			]
 			RatingIndex.insertMany(data)

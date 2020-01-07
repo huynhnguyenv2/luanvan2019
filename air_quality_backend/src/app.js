@@ -14,17 +14,17 @@ const server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(routes); 
-// NodeInfo.find({}, (err, item) => {
-//     if (err) {
-//         console.log(err)
-//     }
-//     else {
-//         item.forEach((value) => {
-//             //console.log(value)
-//             predictData(value.code);
-//         })
-//     }
-// }) 
+NodeInfo.find({}, (err, item) => {
+    if (err) {
+        console.log(err)
+    }
+    else {
+        item.forEach((value) => {
+            //console.log(value)
+            predictData(value.code);
+        })
+    }
+})
 
 getDataFromMqtt();
 server.listen(port, () =>{ console.log('Server is running ' + port); })
