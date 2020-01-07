@@ -56,10 +56,13 @@ function predictData(station_code ) {
 }
 function predictNode(data, factor) {
     var {dataTrain, xTest} =  createDataTrain(data, factor);
-    //console.log(data,factor)
-    const net = new brain.recurrent.LSTMTimeStep();
+    const net = new brain.recurrent.LSTMTimeStep({
+        inputSize: 1,
+        hiddenLayers: [3],
+        outputSize: 1
+    });
     net.train(dataTrain, { log: false, iterations: 600 });
-    const output = net.forecast(xTest, 6 );
+    const output = net.forecast(xTest, 4);
     return output
 }
 
@@ -79,7 +82,7 @@ function createDataTrain(data, factor){
     yTrain.forEach((element, index) => {
         dataTrain.push({ input: xTrain[index], output: yTrain[index] })
     })
-    //console.log(xTrain)
+ 
     return {dataTrain, xTest}
 }
 

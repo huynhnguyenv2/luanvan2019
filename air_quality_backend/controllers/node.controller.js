@@ -72,7 +72,7 @@ exports.seed_node_info = function(req, res) {
 				},
 				{
 					index_name: 'co',
-					max: 1,
+					max: 2,
 					min: 0,
 				},
 				{
