@@ -16,41 +16,37 @@ const ShowNodeComponent = (props) => {
     const lat = node.lat;
     const lon = node.long;
     const url = 'https://api.darksky.net/forecast/848d48c94bd973b432daca581d268737/' + lat + ',' + lon;
-    axios.get(url)
-    .then(function (response) {
-      // handle success
-      //console.log(response);
-      setState({...state, weatherInfo: response.data.currently});
-      const source = axios.CancelToken.source();
-
-      axios.get('/node', {
-        params: {
-          code: node.code
-        }
-        
-      },{
-        headers: {
-          cancelToken: source.token
-        }
-        
-      })
-      .then(function (res) {
-        let data = res.data.nodePredict[0].prediction;
+    const source = axios.CancelToken.source();
+    const requestOne = axios.get(url)
+    const requestTwo = axios.get('/node', {
+      params: {
+        code: node.code
+      }
       
+    },{
+      headers: {
+        cancelToken: source.token
+      }   
+    })
+
+    axios.all([requestOne, requestTwo])
+    .then(([responseOne, responseTwo]) => {
+        let data = responseTwo.data.nodePredict[0].prediction;
         let next_hour = checkData(data[0])
         let next_tree_hour = checkData(data[3])
-        setState({...state, next_hour: next_hour, next_three_hours: next_tree_hour});
+        setState({
+          ...state, 
+          next_hour: next_hour,
+          next_three_hours: 
+          next_tree_hour, 
+          weatherInfo: responseOne.data.currently
+        });
+        
       })
       .catch(function (error) {
         // handle error
           console.log(error);
       })
-    })
-    .catch(function (error) {
-      // handle error
-        console.log(error);
-    })
-
 
   }, [props, state]) 
 
@@ -90,9 +86,9 @@ const ShowNodeComponent = (props) => {
           </div>  
         </div>
         <div className="recomment">
-          <p><small><b>Current: </b> {text}</small></p>
-          <p><small><b>Next 1 hour : </b> {state.next_hour}</small></p>
-          <p><small><b>After 3 hours : </b> {state.next_three_hours}</small></p>
+          <p><b>Current: </b> {text}</p>
+          <p><b>Next 1 hour : </b> {state.next_hour}</p>
+          <p><b>Next 3 hours : </b> {state.next_three_hours}</p>
         </div>
       </div>
     )

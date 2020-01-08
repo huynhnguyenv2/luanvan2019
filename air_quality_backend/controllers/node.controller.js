@@ -6,7 +6,23 @@ import NodeRunTimePrediction from '../models/nodeRuntimePrediction.model'
 import csv from 'csv-parser';
 import fs from 'fs';
 import path from 'path';
+import predictData from '../service/predictData.service';
+exports.training_data = function(req, res){
+	NodeInfo.find({}, (err, item) => {
+		if (err) {
+			res.send(err)
+		}
+		else {
+	
+			item.forEach((value, index, array ) => {
+				predictData(value.code)			
+			})
+			
+			res.json({training: 'success'});
 
+		}
+	})
+}
 exports.list_all_nodes = function(req, res) {
 	NodeInfo.find({}, function(err, data) {
 		if (err){

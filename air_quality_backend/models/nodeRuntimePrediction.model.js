@@ -27,6 +27,15 @@ let NodeRuntimePrediction = new Schema({
         },
         pm10: {
             type: Number
+        }, 
+        temp: {
+            type: Number
+        },
+        humi: {
+            type: Number
+        },
+        light: {
+            type: Number
         }
     }]
     

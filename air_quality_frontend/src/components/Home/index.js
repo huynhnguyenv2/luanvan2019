@@ -66,7 +66,7 @@ const HomeComponent = (props) => {
                     </div>     
                     <div className="col-md12  col-sm-12 col-xs-12 mb-5"> 
                         <div className="panel" >
-                            <p className="text"><small> {moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}</small></p>
+                            <p className="text float-right mr-3"><small> {moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}</small></p>
                             <ShowNodeComponent node={state.node}/>
                         </div> 
                         

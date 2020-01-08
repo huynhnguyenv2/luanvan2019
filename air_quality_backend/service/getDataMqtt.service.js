@@ -2,6 +2,7 @@ import mqtt from 'mqtt';
 import RatingIndex from '../models/ratingIndex.model'
 import NodeRuntime from '../models/nodeRuntime.model'
 import NodeInfo from '../models/nodeInfo.model'
+import moment from 'moment'
 function getDataFromMqtt() {
 // ===============Setup MQTT Broker==============
   const client = mqtt.connect("mqtt://m11.cloudmqtt.com", {
@@ -21,7 +22,8 @@ function getDataFromMqtt() {
   })
   client.on("message", (topic, message) => {
     const dt = JSON.parse(message.toString().split(','));
-    const node = new NodeRuntime({...dt});
+    const date_time = dt.date_time || moment().format("YYYY-MM-DD HH:mm:00");
+    const node = new NodeRuntime({...dt, date_time: date_time});
     node.save((err) => {
       if (err) return console.log(err);
       console.log("success")
@@ -56,7 +58,6 @@ function checkStatus(input) {
       return resultUpdate;
     }
   });
-  
 }
 
 async function updateNodeInfo(id, comment) {
