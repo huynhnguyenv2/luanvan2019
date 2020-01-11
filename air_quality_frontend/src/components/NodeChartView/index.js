@@ -36,7 +36,7 @@ const RenderChart = (props) => {
             Light: []
           }
           
-          res.data.node.forEach(
+          res.data.node.slice(-10, -1).forEach(
               (value) => {   
                   
                   let time = new Date(value.date_time)  

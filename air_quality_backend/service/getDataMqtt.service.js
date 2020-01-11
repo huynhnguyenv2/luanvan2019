@@ -22,7 +22,7 @@ function getDataFromMqtt() {
   })
   client.on("message", (topic, message) => {
     const dt = JSON.parse(message.toString().split(','));
-    const date_time = dt.date_time || moment().format("YYYY-MM-DD HH:mm:00");
+    const date_time = dt.date_time || moment().format("YYYY-MM-DD HH:mm:ss");
     const node = new NodeRuntime({...dt, date_time: date_time});
     node.save((err) => {
       if (err) return console.log(err);
